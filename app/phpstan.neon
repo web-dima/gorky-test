@@ -1,0 +1,13 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+parameters:
+    parallel:
+        processTimeout: 600.0
+    level: 5
+    paths:
+        - app
+        - tests
+    excludePaths:
+        - _ide_helper.php
+        - _ide_helper_models.php
+    checkModelProperties: true

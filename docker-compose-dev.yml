@@ -1,0 +1,117 @@
+
+services:
+    php:
+        image: ${DOCKER_IMAGE_PHP}
+        container_name: "${PROJECT_NAME}-php"
+        working_dir: /app
+        volumes:
+            - ./app:/app
+            - ./docker/php/${ENV}/php.ini:/usr/local/etc/php/php.ini
+            - ./docker/php/${ENV}/entrypoint.sh:/root/entrypoint.sh
+#        entrypoint: "/root/entrypoint.sh"
+        environment:
+            ENV: ${ENV}
+            TZ: ${TZ}
+            DB_NAME: ${DB_NAME}
+            DB_PASS: ${DB_PASS}
+            DB_URL: mariadb:3306
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+        ports:
+            - "127.0.0.1:10011:9000"
+#            - "127.0.0.1:10012:9312"
+#            - "127.0.0.1:10013:9306"
+#            - "10010:22"
+        depends_on:
+            - mariadb
+        links:
+            - mariadb
+        deploy:
+            mode: global
+            resources:
+                limits:
+                    cpus:   "2"
+                    memory: 1G
+            restart_policy:
+                condition: on-failure
+
+    mariadb:
+        image: ${DOCKER_IMAGE_MARIADB}
+        container_name: "${PROJECT_NAME}-mariadb"
+        restart: on-failure
+        working_dir: /backup
+        volumes:
+            - mydb:/var/lib/mysql
+            - ./docker/mariadb/backup:/backup
+            - ./docker/mariadb/${ENV}/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf
+        environment:
+            ENV: ${ENV}
+            TZ: ${TZ}
+            MARIADB_DATABASE: ${DB_NAME}
+            MARIADB_USER: ${DB_USER}
+            MARIADB_PASSWORD: ${DB_PASS}
+            MARIADB_ROOT_PASSWORD: ${ROOT_DB_PASS}
+        ports:
+            - "10014:3306"
+        deploy:
+            mode: global
+            resources:
+                limits:
+                    cpus:   "1"
+                    memory: 2G
+                reservations:
+                    cpus:   "1"
+                    memory: 1G
+            restart_policy:
+                condition: on-failure
+
+    nginx:
+        image: ${DOCKER_IMAGE_NGINX}
+        container_name: "${PROJECT_NAME}-nginx"
+        restart: on-failure
+        working_dir: /app
+        volumes:
+            - ./app/public:/app
+            - ./docker/nginx/${ENV}/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/${ENV}/log_params:/etc/nginx/log_params
+            - ./docker/nginx/${ENV}/static_params:/etc/nginx/static_params
+            - ./docker/nginx/${ENV}/fpm_params:/etc/nginx/fpm_params
+#            - ./docker/nginx/${ENV}/fpm_params_allput:/etc/nginx/fpm_params_allput
+            - ./docker/nginx/${ENV}/nginx.conf:/etc/nginx/nginx.conf
+            - ./docker/nginx/${ENV}/ssl:/etc/nginx/ssl
+        environment:
+            ENV: ${ENV}
+            TZ: ${TZ}
+        ports:
+            - "80:80"
+            - "443:443"
+        #logging:
+        #    driver: ${LOG_DRIVER}
+        #    options:
+        #        gelf-address: ${LOG_HOST}
+        #        tag: "nginx-${PROJECT_NAME}"
+        deploy:
+            mode: global
+            resources:
+                limits:
+                    cpus:   "1"
+                    memory: "128M"
+            restart_policy:
+                condition: on-failure
+        depends_on:
+            - php
+#            - php-allput
+        links:
+            - php
+
+volumes:
+  mydb:
+    name: ${PROJECT_NAME}-mydb
+
+networks:
+  default:
+    driver: bridge
+#    ipam:
+#        driver: default
+#        config:
+#            - subnet: 10.110.6.0/24
