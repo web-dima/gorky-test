@@ -12,6 +12,7 @@
 # Установка зависимостей
 `make composer`
 
-
 # остановка докера
 `make docker-down`
+
+Nginx раздает приложение по ссылке http://localhost
