@@ -4,7 +4,7 @@
 Проект в докере. Для его запуска используйте wsl
 
 # Копирование .env
-`make env`
+`cp .env.example .env && cp app/.env.example app/.env`
 
 # Запуск докера
 `make docker-up`

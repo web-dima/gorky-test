@@ -19,7 +19,3 @@ cs-check:
 
 composer:
 	docker exec -i $(PROJECT_NAME)-php composer install
-
-env:
-	cp .env.example .env
-	cp app/.env.example app/.env
