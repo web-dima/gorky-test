@@ -19,3 +19,7 @@ cs-check:
 
 composer:
 	docker exec -i $(PROJECT_NAME)-php composer install
+
+migrate-seed:
+	docker exec -i $(PROJECT_NAME)-php php artisan migrate
+	docker exec -i $(PROJECT_NAME)-php php artisan db:seed
