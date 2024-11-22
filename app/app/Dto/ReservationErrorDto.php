@@ -2,7 +2,8 @@
 
 namespace App\Dto;
 
-class ReservationErrorDto extends Dto {
+class ReservationErrorDto extends AbstractDto
+{
     private string $error;
 
     public function __construct(string $error)
@@ -10,7 +11,7 @@ class ReservationErrorDto extends Dto {
         $this->error = $error;
     }
 
-    public static function init(...$params): ReservationErrorDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }

@@ -2,8 +2,9 @@
 
 namespace App\Dto;
 
-abstract class Dto {
+abstract class AbstractDto
+{
+    abstract public static function init(...$params): self;
 
-    public static abstract function init(...$params): self;
-    public abstract function getArray(): array;
+    abstract public function getArray(): array;
 }

@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Dto\IndexReservationDto;
+use App\Dto\ReservationArrayDto;
 use App\Dto\ReservationDestroyDto;
 use App\Dto\ReservationErrorDto;
-use App\Dto\ReservationArrayDto;
 use App\Dto\ReservationShowDto;
 use App\Dto\ReservationStoreErrorDto;
 use App\Dto\ReservationStoreSuccessDto;
@@ -14,8 +14,8 @@ use App\Dto\StoreReservationDto;
 use App\Models\Reservation;
 use App\Models\User;
 
-class ReservationService {
-
+class ReservationService
+{
     public function store(StoreReservationDto $reservationDto): ReservationStoreSuccessDto|ReservationErrorDto
     {
         /** @var User $user */
@@ -126,5 +126,4 @@ class ReservationService {
 
         return ReservationArrayDto::init($reservationsList);
     }
-
 }

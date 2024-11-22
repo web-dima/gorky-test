@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- *
- *
  * @property int $id
  * @property int $user_id
  * @property string $check_in_date
@@ -34,7 +32,6 @@ use Illuminate\Support\Carbon;
  */
 class Reservation extends Model
 {
-
     protected $fillable = [
         'check_in_date',
         'status',

@@ -11,15 +11,15 @@ use App\Http\Requests\IndexReservationRequest;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Reservation;
-use Illuminate\Http\Request;
 use App\Services\ReservationService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReservationController extends Controller
 {
     public function __construct(protected ReservationService $reservationService)
     {
-        $this->middleware(CheckReservationExist::class, ['only' => ['update','destroy']]);
+        $this->middleware(CheckReservationExist::class, ['only' => ['update', 'destroy']]);
     }
 
     /**
@@ -33,7 +33,6 @@ class ReservationController extends Controller
 
         return JsonResource::make($result->getArray());
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +63,6 @@ class ReservationController extends Controller
      */
     public function update(UpdateReservationRequest $request): JsonResource
     {
-
         $dto = ReservationUpdateDto::init($request["reservation"], ...$request->validated());
 
         $result = $this->reservationService->update($dto);

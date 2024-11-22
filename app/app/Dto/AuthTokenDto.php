@@ -2,19 +2,20 @@
 
 namespace App\Dto;
 
-class AuthTokenDto extends Dto {
-    private string $access_token;
-    private string $token_type;
-    private int $expires_in;
+class AuthTokenDto extends AbstractDto
+{
+    private string $accessToken;
+    private string $tokenType;
+    private int $expiresIn;
 
-    public function __construct(string $access_token, string $token_type, int $expires_in)
+    public function __construct(string $accessToken, string $tokenType, int $expiresIn)
     {
-        $this->access_token = $access_token;
-        $this->token_type = $token_type;
-        $this->expires_in = $expires_in;
+        $this->accessToken = $accessToken;
+        $this->tokenType = $tokenType;
+        $this->expiresIn = $expiresIn;
     }
 
-    public static function init(...$params): AuthTokenDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }
@@ -23,9 +24,9 @@ class AuthTokenDto extends Dto {
     {
         return [
             "success" => true,
-            "access_token" => $this->access_token,
-            "token_type" => $this->token_type,
-            "expires_in" => $this->expires_in,
+            "access_token" => $this->accessToken,
+            "token_type" => $this->tokenType,
+            "expires_in" => $this->expiresIn,
         ];
     }
 }

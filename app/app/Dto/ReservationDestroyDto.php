@@ -2,7 +2,8 @@
 
 namespace App\Dto;
 
-class ReservationDestroyDto extends Dto {
+class ReservationDestroyDto extends AbstractDto
+{
     private string $message;
 
     public function __construct(string $message)
@@ -10,7 +11,7 @@ class ReservationDestroyDto extends Dto {
         $this->message = $message;
     }
 
-    public static function init(...$params): ReservationDestroyDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }

@@ -4,7 +4,8 @@ namespace App\Dto;
 
 use App\Models\Reservation;
 
-class ReservationUpdateDto extends Dto {
+class ReservationUpdateDto extends AbstractDto
+{
     private Reservation $reservation;
     private string $check_in_date;
     private int $status;
@@ -16,7 +17,7 @@ class ReservationUpdateDto extends Dto {
         $this->reservation = $reservation;
     }
 
-    public static function init(...$params): ReservationUpdateDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }
@@ -25,7 +26,7 @@ class ReservationUpdateDto extends Dto {
     {
         return [
             "check_in_date" => $this->check_in_date,
-            "status" => $this->status
+            "status" => $this->status,
         ];
     }
 

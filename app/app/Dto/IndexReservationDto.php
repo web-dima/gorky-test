@@ -2,7 +2,8 @@
 
 namespace App\Dto;
 
-class IndexReservationDto extends Dto {
+class IndexReservationDto extends AbstractDto
+{
     private ?int $limit;
     private ?int $offset;
     private ?int $status;
@@ -14,7 +15,7 @@ class IndexReservationDto extends Dto {
         $this->status = $status;
     }
 
-    public static function init(...$params): IndexReservationDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }
@@ -51,5 +52,4 @@ class IndexReservationDto extends Dto {
     {
         return $this->limit;
     }
-
 }

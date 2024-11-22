@@ -10,7 +10,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthController extends Controller
 {
-
     public function login(LoginRequest $request): JsonResource|JsonResponse
     {
         $credentials = $request->validated();
@@ -22,7 +21,7 @@ class AuthController extends Controller
         return JsonResource::make(AuthTokenDto::init(...[
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ])->getArray());
     }
 }

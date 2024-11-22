@@ -18,12 +18,11 @@ class JWTAuthMiddleware
 {
     /**
      * Handle an incoming request.
-     *
      * @param Request $request
      * @param Closure(Request): (Response|RedirectResponse) $next
      * @return JsonResponse
      */
-    public function handle(Request $request, Closure $next): JsonResponse
+    public function handle(Request $request, Closure $next): JsonResponse|RedirectResponse
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();

@@ -10,8 +10,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -31,7 +29,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class User extends Authenticatable implements JWTSubject
 {
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -42,7 +39,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     public function reservations(): HasMany

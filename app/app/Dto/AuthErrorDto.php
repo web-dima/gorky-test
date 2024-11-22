@@ -2,7 +2,8 @@
 
 namespace App\Dto;
 
-class AuthErrorDto extends Dto {
+class AuthErrorDto extends AbstractDto
+{
     private string $error;
 
     public function __construct(string $error)
@@ -10,7 +11,7 @@ class AuthErrorDto extends Dto {
         $this->error = $error;
     }
 
-    public static function init(...$params): AuthErrorDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }
@@ -20,7 +21,7 @@ class AuthErrorDto extends Dto {
         return [
             "success" => false,
             "errors" => [
-                $this->error
+                $this->error,
             ],
         ];
     }

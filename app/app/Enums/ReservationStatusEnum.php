@@ -2,13 +2,14 @@
 
 namespace App\Enums;
 
-enum ReservationStatusEnum: int {
+enum ReservationStatusEnum: int
+{
      case NOT_ACCEPTED = 0;
      case ACCEPTED = 1;
 
     public static function values(): array
     {
-        return array_map(function ($case){
+        return array_map(function ($case) {
             return $case->value;
         }, self::cases());
     }

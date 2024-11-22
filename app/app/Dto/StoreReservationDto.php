@@ -2,19 +2,20 @@
 
 namespace App\Dto;
 
-class StoreReservationDto extends Dto {
+class StoreReservationDto extends AbstractDto
+{
     private int|false $user_id;
     private string $check_in_date;
     private int $status;
 
-    public function __construct(int $user_id, string $check_in_date, int $status = 0)
+    public function __construct(int|false $user_id, string $check_in_date, int $status = 0)
     {
         $this->user_id = $user_id;
         $this->check_in_date = $check_in_date;
         $this->status = $status;
     }
 
-    public static function init(...$params): StoreReservationDto
+    public static function init(...$params): self
     {
         if (isset($params["user_id"])) {
             return new self(...$params);
@@ -47,5 +48,4 @@ class StoreReservationDto extends Dto {
     {
         return $this->user_id;
     }
-
 }

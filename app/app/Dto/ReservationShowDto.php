@@ -4,7 +4,8 @@ namespace App\Dto;
 
 use App\Models\Reservation;
 
-class ReservationShowDto extends Dto {
+class ReservationShowDto extends AbstractDto
+{
     private Reservation $reservation;
 
     public function __construct(Reservation $reservation)
@@ -12,8 +13,7 @@ class ReservationShowDto extends Dto {
         $this->reservation = $reservation;
     }
 
-
-    public static function init(...$params): ReservationShowDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }

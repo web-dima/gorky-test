@@ -9,7 +9,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateReservationRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -20,7 +19,6 @@ class UpdateReservationRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
      * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array

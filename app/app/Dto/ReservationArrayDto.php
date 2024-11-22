@@ -4,8 +4,8 @@ namespace App\Dto;
 
 use App\Models\Reservation;
 
-class ReservationArrayDto extends Dto {
-
+class ReservationArrayDto extends AbstractDto
+{
     /** @var Reservation[] */
     private array $reservations;
 
@@ -14,8 +14,7 @@ class ReservationArrayDto extends Dto {
         $this->reservations = $reservations;
     }
 
-
-    public static function init(...$params): ReservationArrayDto
+    public static function init(...$params): self
     {
         return new self(...$params);
     }
