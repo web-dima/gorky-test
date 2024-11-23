@@ -7,7 +7,6 @@ services:
         volumes:
             - ./app:/app
             - ./docker/php/${ENV}/php.ini:/usr/local/etc/php/php.ini
-            - ./docker/php/${ENV}/entrypoint.sh:/root/entrypoint.sh
         environment:
             ENV: ${ENV}
             TZ: ${TZ}
