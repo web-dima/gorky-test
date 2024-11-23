@@ -12,6 +12,9 @@
 # Установка зависимостей
 `make composer`
 
+# Выполнение миграций
+`make migrate-seed`
+
 # остановка докера
 `make docker-down`
 

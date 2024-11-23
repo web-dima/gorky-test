@@ -1,7 +1,6 @@
 include .env
 
 docker-up:
-	chmod +x docker/php/$(ENV)/entrypoint.sh
 	chown -R www-data app/storage
 	docker compose -f docker-compose-$(ENV).yml up -d
 

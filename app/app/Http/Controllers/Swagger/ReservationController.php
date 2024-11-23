@@ -165,7 +165,7 @@ use App\Http\Controllers\Controller;
  * ),
  * @OA\Put (
  *     path="/api/reservation/{reservation}",
- *     summary="Получение брони по id. Только админ может получить любую бронь. Обычный пользователь, только свою",
+ *     summary="Обновление брони по id. Только админ может Обновить любую бронь. Обычный пользователь, только свою",
  *     tags={"Reservation"},
  *     security={{ "bearerAuth" : {} }},
  *     @OA\Parameter (
@@ -241,6 +241,74 @@ use App\Http\Controllers\Controller;
  *         )
  *     ),
  * ),
+ * @OA\Get (
+ *     path="/api/reservation/{reservation}",
+ *     summary="Получение брони по id. Только админ может получить любую бронь. Обычный пользователь, только свою",
+ *     tags={"Reservation"},
+ *     security={{ "bearerAuth" : {} }},
+ *     @OA\Parameter (
+ *         description="id брони",
+ *         in="path",
+ *         name="reservation",
+ *         @OA\Schema(type="int"),
+ *         example=2
+ *     ),
+ *     @OA\Response (
+ *         response=200,
+ *         description="ok",
+ *          @OA\JsonContent(
+ *             @OA\Property(property="data", type="object",
+ *                 @OA\Property(property="success", type="bool", example=true),
+ *                 @OA\Property(property="reservation", type="object",
+ *                     @OA\Property(property="user_id", type="int", example=1),
+ *                     @OA\Property(property="check_in_date", type="date", example="2024-12-27"),
+ *                     @OA\Property(property="status", type="int", example=1),
+ *                     @OA\Property(property="updated_at", type="timestamp", example="2024-11-23T12:48:03.000000Z"),
+ *                     @OA\Property(property="created_at", type="timestamp", example="2024-11-23T12:48:03.000000Z"),
+ *                     @OA\Property(property="id", type="int", example=20),
+ *                     @OA\Property(property="status_text", type="bool", example="Подтвержден"),
+ *                 ),
+ *             ),
+ *          )
+ *     ),
+ *     @OA\Response (
+ *         response=401,
+ *         description="Не авторизован",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="data", type="object",
+ *                 @OA\Property(property="success", type="bool", example=false),
+ *                 @OA\Property(property="errors", type="array", @OA\Items(
+ *                     @OA\Property(property="error", type="string", example="Токен авторизации истек"),
+ *                 )),
+ *             ),
+ *         )
+ *     ),
+ *     @OA\Response (
+ *         response=400,
+ *         description="Неверный запрос",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="data", type="object",
+ *                 @OA\Property(property="success", type="bool", example=false),
+ *                 @OA\Property(property="errors", type="array", @OA\Items(
+ *                     @OA\Property(property="error", type="string", example="У вас нет доступа к данной брони"),
+ *                 )),
+ *             ),
+ *         )
+ *     ),
+ *     @OA\Response (
+ *         response=422,
+ *         description="Невалидные данные",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="не передано поле N"),
+ *             @OA\Property(property="errors", type="object",
+ *                 @OA\Property(property="limit", type="array", @OA\Items(
+ *                     type="string",
+ *                     example="не передано поле N"
+ *                 )),
+ *             ),
+ *         )
+ *     ),
+ * ),
  * @OA\Delete (
  *     path="/api/reservation/{reservation}",
  *     summary="Удаление брони по id. Только админ может удалить любую бронь. Обычный пользователь, только свою",
@@ -282,7 +350,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(property="data", type="object",
  *                 @OA\Property(property="success", type="bool", example=false),
  *                 @OA\Property(property="errors", type="array", @OA\Items(
- *                     @OA\Property(property="error", type="string", example="Вы не можете удалить данную бронь"),
+ *                     @OA\Property(property="error", type="string", example="У вас нет доступа к данной брони"),
  *                 )),
  *             ),
  *         )

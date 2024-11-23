@@ -530,11 +530,185 @@
             }
         },
         "/api/reservation/{reservation}": {
-            "put": {
+            "get": {
                 "tags": [
                     "Reservation"
                 ],
                 "summary": "Получение брони по id. Только админ может получить любую бронь. Обычный пользователь, только свою",
+                "operationId": "2024647ffd2d7c349f8a146f8301a7c7",
+                "parameters": [
+                    {
+                        "name": "reservation",
+                        "in": "path",
+                        "description": "id брони",
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": 2
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "reservation": {
+                                                    "properties": {
+                                                        "user_id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "check_in_date": {
+                                                            "type": "string",
+                                                            "format": "date",
+                                                            "example": "2024-12-27"
+                                                        },
+                                                        "status": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "updated_at": {
+                                                            "type": "timestamp",
+                                                            "example": "2024-11-23T12:48:03.000000Z"
+                                                        },
+                                                        "created_at": {
+                                                            "type": "timestamp",
+                                                            "example": "2024-11-23T12:48:03.000000Z"
+                                                        },
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 20
+                                                        },
+                                                        "status_text": {
+                                                            "type": "boolean",
+                                                            "example": "Подтвержден"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Не авторизован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "errors": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "error": {
+                                                                "type": "string",
+                                                                "example": "Токен авторизации истек"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Неверный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "errors": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "error": {
+                                                                "type": "string",
+                                                                "example": "У вас нет доступа к данной брони"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Невалидные данные",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "не передано поле N"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "limit": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "не передано поле N"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Reservation"
+                ],
+                "summary": "Обновление брони по id. Только админ может Обновить любую бронь. Обычный пользователь, только свою",
                 "operationId": "fb6a4b40f636c92ffcf67d0e910a8edf",
                 "parameters": [
                     {
@@ -822,7 +996,7 @@
                                                         "properties": {
                                                             "error": {
                                                                 "type": "string",
-                                                                "example": "Вы не можете удалить данную бронь"
+                                                                "example": "У вас нет доступа к данной брони"
                                                             }
                                                         },
                                                         "type": "object"

@@ -53,7 +53,7 @@ class ReservationService
             if ($reservationModel->user_id == $user->id) {
                 return $reservationDto;
             } else {
-                return ReservationErrorDto::init("Вы не можете получить данную бронь");
+                return ReservationErrorDto::init("У вас нет доступа к данной брони");
             }
         }
     }
@@ -74,7 +74,7 @@ class ReservationService
             if ($reservationUserID == $user->id) {
                 return ReservationShowDto::init(Reservation::find($reservationID));
             } else {
-                return ReservationErrorDto::init("Вы не можете получить данную бронь");
+                return ReservationErrorDto::init("У вас нет доступа к данной брони");
             }
         }
     }
