@@ -79,7 +79,6 @@ use App\Http\Controllers\Controller;
  *         )
  *     ),
  * ),
- *
  * @OA\Get (
  *     path="/api/reservation",
  *     summary="Получение броней пользователя. Или если авторизованны за админа, то броней всех пользователей",

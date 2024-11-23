@@ -19,4 +19,5 @@ use App\Http\Controllers\Controller;
  * )
  */
 class SwaggerBaseController extends Controller
-{}
+{
+}
