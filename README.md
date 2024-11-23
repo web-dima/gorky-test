@@ -15,6 +15,9 @@
 # Выполнение миграций
 `make migrate-seed`
 
+# Swagger
+Ссылка на Swagger - http://localhost/api/documentation
+
 # остановка докера
 `make docker-down`
 
