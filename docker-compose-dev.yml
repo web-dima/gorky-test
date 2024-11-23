@@ -8,7 +8,6 @@ services:
             - ./app:/app
             - ./docker/php/${ENV}/php.ini:/usr/local/etc/php/php.ini
             - ./docker/php/${ENV}/entrypoint.sh:/root/entrypoint.sh
-#        entrypoint: "/root/entrypoint.sh"
         environment:
             ENV: ${ENV}
             TZ: ${TZ}
@@ -18,10 +17,7 @@ services:
             REDIS_HOST: redis
             REDIS_PORT: 6379
         ports:
-            - "127.0.0.1:10011:9000"
-#            - "127.0.0.1:10012:9312"
-#            - "127.0.0.1:10013:9306"
-#            - "10010:22"
+            - "10011:9000"
         depends_on:
             - mariadb
         links:
@@ -72,24 +68,17 @@ services:
         working_dir: /app
         volumes:
             - ./app/public:/app
+            - ./app/storage/api-docs/api-docs.json:/app/docs/api-docs.json
             - ./docker/nginx/${ENV}/conf.d/default.conf:/etc/nginx/conf.d/default.conf
             - ./docker/nginx/${ENV}/log_params:/etc/nginx/log_params
             - ./docker/nginx/${ENV}/static_params:/etc/nginx/static_params
             - ./docker/nginx/${ENV}/fpm_params:/etc/nginx/fpm_params
-#            - ./docker/nginx/${ENV}/fpm_params_allput:/etc/nginx/fpm_params_allput
             - ./docker/nginx/${ENV}/nginx.conf:/etc/nginx/nginx.conf
-            - ./docker/nginx/${ENV}/ssl:/etc/nginx/ssl
         environment:
             ENV: ${ENV}
             TZ: ${TZ}
         ports:
             - "80:80"
-            - "443:443"
-        #logging:
-        #    driver: ${LOG_DRIVER}
-        #    options:
-        #        gelf-address: ${LOG_HOST}
-        #        tag: "nginx-${PROJECT_NAME}"
         deploy:
             mode: global
             resources:
@@ -100,7 +89,6 @@ services:
                 condition: on-failure
         depends_on:
             - php
-#            - php-allput
         links:
             - php
 
@@ -111,7 +99,3 @@ volumes:
 networks:
   default:
     driver: bridge
-#    ipam:
-#        driver: default
-#        config:
-#            - subnet: 10.110.6.0/24

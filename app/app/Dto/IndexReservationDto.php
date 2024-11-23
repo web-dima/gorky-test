@@ -13,6 +13,7 @@ class IndexReservationDto extends AbstractDto
         $this->limit = $limit;
         $this->offset = $offset;
         $this->status = $status;
+        $this->setSuccess(true);
     }
 
     public static function init(...$params): self

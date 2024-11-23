@@ -9,6 +9,7 @@ class ReservationDestroyDto extends AbstractDto
     public function __construct(string $message)
     {
         $this->message = $message;
+        $this->setSuccess(true);
     }
 
     public static function init(...$params): self
@@ -19,7 +20,7 @@ class ReservationDestroyDto extends AbstractDto
     public function getArray(): array
     {
         return [
-            "success" => false,
+            "success" => $this->getSuccess(),
             "message" => $this->message,
         ];
     }

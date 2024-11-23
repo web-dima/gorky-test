@@ -15,15 +15,15 @@ class CheckReservationExist
      * Handle an incoming request.
      * @param Request $request
      * @param Closure $next
-     * @return JsonResource|Response
+     * @return Response
      */
-    public function handle(Request $request, Closure $next): JsonResource|Response
+    public function handle(Request $request, Closure $next): Response
     {
         $reservationId = $request["reservation"];
         $reservation = Reservation::find($reservationId);
 
         if (is_null($reservation)) {
-            return JsonResource::make(ReservationErrorDto::init("Данной брони не существует")->getArray());
+            return JsonResource::make(ReservationErrorDto::init("Данной брони не существует")->getArray())->response()->setStatusCode(422);
         } else {
             $request["reservation"] = $reservation;
             return $next($request);

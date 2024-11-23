@@ -13,6 +13,7 @@ class StoreReservationDto extends AbstractDto
         $this->user_id = $user_id;
         $this->check_in_date = $check_in_date;
         $this->status = $status;
+        $this->setSuccess(true);
     }
 
     public static function init(...$params): self

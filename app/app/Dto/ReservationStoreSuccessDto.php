@@ -11,6 +11,7 @@ class ReservationStoreSuccessDto extends AbstractDto
     public function __construct(Reservation $reservation)
     {
         $this->reservation = $reservation;
+        $this->setSuccess(true);
     }
 
     public static function init(...$params): self
@@ -21,7 +22,7 @@ class ReservationStoreSuccessDto extends AbstractDto
     public function getArray(): array
     {
         return [
-            "success" => true,
+            "success" => $this->getSuccess(),
             "reservation" => $this->reservation,
         ];
     }

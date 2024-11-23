@@ -23,13 +23,13 @@ class DatabaseSeeder extends Seeder
                 "name" => "Николай",
                 "email" => "nikolay@gmail.com",
                 "is_admin" => false,
-                "password" => \Hash::make("1234"),
+                "password" => \Hash::make("123"),
             ],
             [
                 "name" => "Дмитрий",
                 "email" => "dmitry@gmail.com",
                 "is_admin" => true,
-                "password" => \Hash::make("321"),
+                "password" => \Hash::make("123"),
             ]
         ]);
     }

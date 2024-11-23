@@ -15,6 +15,7 @@ class ReservationUpdateDto extends AbstractDto
         $this->check_in_date = is_null($check_in_date) ? $reservation->check_in_date : $check_in_date;
         $this->status = is_null($status) ? $reservation->status : $status;
         $this->reservation = $reservation;
+        $this->setSuccess(true);
     }
 
     public static function init(...$params): self

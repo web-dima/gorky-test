@@ -9,6 +9,7 @@ class AuthErrorDto extends AbstractDto
     public function __construct(string $error)
     {
         $this->error = $error;
+        $this->setSuccess(false);
     }
 
     public static function init(...$params): self
@@ -19,9 +20,9 @@ class AuthErrorDto extends AbstractDto
     public function getArray(): array
     {
         return [
-            "success" => false,
+            "success" => $this->getSuccess(),
             "errors" => [
-                $this->error,
+                "error" => $this->error,
             ],
         ];
     }

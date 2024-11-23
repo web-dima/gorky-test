@@ -12,6 +12,7 @@ use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Reservation;
 use App\Services\ReservationService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,58 +26,68 @@ class ReservationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(IndexReservationRequest $request): JsonResource
+    public function index(IndexReservationRequest $request): JsonResponse
     {
         $dto = IndexReservationDto::init(...$request->validated());
 
         $result = $this->reservationService->index($dto);
 
-        return JsonResource::make($result->getArray());
+        $statusCode = $result->getSuccess() ? 200 : 400;
+
+        return JsonResource::make($result->getArray())->response()->setStatusCode($statusCode);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReservationRequest $request): JsonResource
+    public function store(StoreReservationRequest $request): JsonResponse
     {
         $dto = StoreReservationDto::init(...$request->validated());
 
         $result = $this->reservationService->store($dto);
 
-        return JsonResource::make($result->getArray());
+        $statusCode = $result->getSuccess() ? 200 : 400;
+
+        return JsonResource::make($result->getArray())->response()->setStatusCode($statusCode);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation): JsonResource
+    public function show(Reservation $reservation): JsonResponse
     {
         $dto = ReservationShowDto::init($reservation);
 
         $result = $this->reservationService->show($dto);
 
-        return JsonResource::make($result->getArray());
+        $statusCode = $result->getSuccess() ? 200 : 400;
+
+        return JsonResource::make($result->getArray())->response()->setStatusCode($statusCode);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReservationRequest $request): JsonResource
+    public function update(UpdateReservationRequest $request): JsonResponse
     {
         $dto = ReservationUpdateDto::init($request["reservation"], ...$request->validated());
 
         $result = $this->reservationService->update($dto);
 
-        return JsonResource::make($result->getArray());
+        $statusCode = $result->getSuccess() ? 200 : 400;
+
+        return JsonResource::make($result->getArray())->response()->setStatusCode($statusCode);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request): JsonResource
+    public function destroy(Request $request): JsonResponse
     {
         $result = $this->reservationService->destroy($request["reservation"]);
 
-        return JsonResource::make($result->getArray());
+        $statusCode = $result->getSuccess() ? 200 : 400;
+
+        return JsonResource::make($result->getArray())->response()->setStatusCode($statusCode);
     }
 }
